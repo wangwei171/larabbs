@@ -2,13 +2,14 @@
 namespace App\Handlers;
 
 use Illuminate\Support\Str;
+use Image;
 
 class ImageUploadHandler
 {
 	//只允许以下后缀名的图片文件上传
 	protected $allowed_ext = ["png","jpg","gif","jpeg"];
 
-	public function save($file,$folder,$file_prefix)
+	public function save($file,$folder,$file_prefix,$max_width=false)
 	{
 		$folder_name = "uploads/images/$folder/".date("Ym/d",time());
 
@@ -22,10 +23,28 @@ class ImageUploadHandler
 			return false;
 		}
 
+
+
 		$file->move($upload_path,$filename);
+
+		if($max_width && $extension != 'gif'){
+			$this->reduceSize($upload_path . '/' . $filename, $max_width);
+		}
 
 		return [
 			'path' => config('app.url') . "/$folder_name/$filename"
 		];
+	}
+
+	public function reduceSize($file_path,$max_width)
+	{
+		$image = Image::make($file_path);
+
+		$image->resize($max_width,null,function($constraint){
+			$constraint->aspectRatio();
+			$constraint->upsize();
+		});
+
+		$image->save();
 	}
 }
