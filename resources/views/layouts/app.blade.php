@@ -7,6 +7,8 @@
 	<meta name="csrf-token" content="{{  csrf_token() }}">
 	<title>@yield('title','laraBBS')-进阶</title>
 	<link rel="stylesheet" type="text/css" href="{{  mix('css/app.css') }}">
+
+	@yield('styles')
 </head>
 <body>
 	<div id="app" class="{{  route_class() }}-page">
@@ -20,5 +22,7 @@
 	</div>
 
 	<script type="text/javascript" src="{{  mix('js/app.js') }}"></script>
+
+	@yield('scripts')
 </body>
 </html>
