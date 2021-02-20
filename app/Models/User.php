@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use App\Models\Topic;
 use App\Models\Reply;
+use Auth;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
@@ -59,5 +60,20 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function notify($instance)
+    {
+        if($this->id==Auth::id())
+        {
+            return;
+        }
+
+        if(method_exists($instance, 'toDatabase'))
+        {
+            $this->increment('notification_count');
+        }
+
+        $this->laravelNotify($instance);
     }
 }
