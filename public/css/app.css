@@ -17632,3 +17632,16 @@ body {
   content: normal;
 }
 
+.notification-badge .badge {
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+.notification-badge .badge-hint {
+  background-color: #d15b47 !important;
+}
+
+.notification-badge .badge-secondary {
+  background-color: #E8E8E8;
+}
+

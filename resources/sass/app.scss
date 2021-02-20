@@ -103,3 +103,19 @@ body{
 }
 
 @import "_topic_body";
+
+.notification-badge{
+	.badge{
+		margin-top:14px;
+		font-size:12px;
+	}
+
+	.badge-hint{
+		background-color:#d15b47 !important;
+	}
+
+	.badge-secondary{
+		background-color:#E8E8E8;
+	}
+
+}

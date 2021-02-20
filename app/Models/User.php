@@ -62,6 +62,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return $this->hasMany(Reply::class);
     }
 
+    use Notifiable{
+        notify as protected laravelNotify;
+    }
+
     public function notify($instance)
     {
         if($this->id==Auth::id())
@@ -75,5 +79,12 @@ class User extends Authenticatable implements MustVerifyEmailContract
         }
 
         $this->laravelNotify($instance);
+    }
+
+    public function markAsRead()
+    {
+        $this->notification_count=0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
     }
 }
