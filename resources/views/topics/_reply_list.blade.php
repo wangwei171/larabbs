@@ -11,11 +11,17 @@
 					<span class="text-secondary"> • </span>
 					<span class="text-secondary">{{$reply->created_at->diffForHumans()}}</span>
 
+					@can('destroy',$reply)
 					<span class="float-right">
-						<a href="">
-							<i class="fa fa-trash-alt"></i>
-						</a>
+						<form method="POST" action="{{route('replies.destroy',$reply->id)}}" onsubmit="return confirm('确定要删除吗？')">
+							{{csrf_field()}}
+							{{method_field('DELETE')}}
+							<button class="btn btn-default btn-xs text-secondary" type="submit">
+								<i class="fa fa-trash-alt"></i>
+							</button>
+						</form>
 					</span>
+					@endcan
 				</div>
 
 				<div class="text-secondary">
