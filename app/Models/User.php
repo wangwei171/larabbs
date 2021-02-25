@@ -10,10 +10,11 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use App\Models\Topic;
 use App\Models\Reply;
 use Auth;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use HasFactory, Notifiable, MustVerifyEmailTrait;
+    use HasFactory, Notifiable, MustVerifyEmailTrait, HasRoles;
 
     /**
      * The attributes that are mass assignable.
