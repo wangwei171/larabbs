@@ -11,4 +11,14 @@ class PagesController extends Controller
     	//dd(\Auth::user()->hasVerifiedEmail());
     	return view('pages.root');
     }
+
+    public function permissionDenied()
+    {
+    	if(config('adminitrator.permission'))
+    	{
+    		return redirect(url(config('adminitrator.uri')),302);
+    	}
+
+    	return view('pages.permission_denied');
+    }
 }
